@@ -1,7 +1,7 @@
 /* global gapi */
 import React, {Component} from 'react';
 import {DIVISIONS, SHEETS} from "../sensitive_constants";
-import {fetchFromSheet, getAppendRequest} from "../utils";
+import {appendToSheet, fetchFromSheet} from "../utils";
 
 
 class InterviewerSignIn extends Component {
@@ -53,11 +53,9 @@ class InterviewerSignIn extends Component {
 
     register() {
         const registerDivision = this.state.selectedDivision;
-        gapi.client.sheets.spreadsheets.values.append(
-            getAppendRequest(SHEETS.Interviewers, 'A2:C2', [
-                [this.googleProfile.getName(), this.googleProfile.getEmail(), registerDivision]
-            ])
-        ).then(
+        appendToSheet(SHEETS.Interviewers, 'A2:C2', [
+            [this.googleProfile.getName(), this.googleProfile.getEmail(), registerDivision]
+        ]).then(
             function (response) {
                 if (response.status === 200 && response.result.updates.updatedCells === 3) {
                     this.onMySigninStatusChange(registerDivision);

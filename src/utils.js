@@ -53,9 +53,9 @@ export const getUpdateRequest = (sheetId, rowIndex, columnIndex, rows) => {
     );
 };
 
-export const getAppendRequest = (sheet, range, rows) => {
+export const appendToSheet = (sheet, range, rows) => {
     console.assert(typeof sheet.id === 'number', 'sheetId must be a number');
-    return (
+    return gapi.client.sheets.spreadsheets.values.append(
         {
             spreadsheetId: SPREADSHEET_ID,
             valueInputOption: 'USER_ENTERED',

@@ -4,9 +4,7 @@ import logo from './manas_logo.png';
 import './App.css';
 
 import {API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES, SPREADSHEET_ID} from './sensitive_constants';
-import ConditionalDisplay from "./components/ConditionalDisplay";
 import ProfileHeader from "./components/ProfileHeader";
-import Timer from "./components/Timer";
 import Sessions from "./components/Sessions";
 
 class App extends Component {
@@ -21,7 +19,7 @@ class App extends Component {
 
     // noinspection JSUnusedLocalSymbols
     updateSigninStatus(isSignedin, interviewerProfile) {
-        this.setState({isSignedin: isSignedin})
+        this.setState({isSignedin, interviewerProfile});
     }
 
 
@@ -67,12 +65,12 @@ class App extends Component {
                     </table>
                 </div>
                 <div className="App-intro">
-                    <ConditionalDisplay condition={this.state.isSignedin}>
-                        <div>
-                            <Timer/>
-                            <Sessions/>
-                        </div>
-                    </ConditionalDisplay>
+                    {
+                        this.state.isSignedin === true ?
+                            <Sessions interviewerProfile={this.state.interviewerProfile}/>
+                            :
+                            null
+                    }
                 </div>
                 {
                     this.state.rows &&
