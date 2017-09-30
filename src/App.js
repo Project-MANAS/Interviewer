@@ -1,21 +1,89 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+/* global gapi */
+import React, {Component} from 'react';
+import logo from './manas_logo.png';
 import './App.css';
 
+import {API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES, SPREADSHEET_ID} from './sensitive_constants';
+import ConditionalDisplay from "./components/ConditionalDisplay";
+import ProfileHeader from "./components/ProfileHeader";
+import Timer from "./components/Timer";
+import Sessions from "./components/Sessions";
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.updateSigninStatus = this.updateSigninStatus.bind(this);
+        this.state = {rows: null, isSignedin: false};
+
+        this.listMajors = this.listMajors.bind(this);
+    }
+
+    // noinspection JSUnusedLocalSymbols
+    updateSigninStatus(isSignedin, interviewerProfile) {
+        this.setState({isSignedin: isSignedin})
+    }
+
+
+    listMajors() {
+        gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEET_ID,
+            range: 'Scheduler!A13:A',
+        }).then(function (response) {
+            const range = response.result;
+            if (range.values.length > 0) {
+                const rows = range.values.map((row) => row);
+                this.setState({rows: rows});
+            } else {
+                console.log('No data found.');
+            }
+        }.bind(this), function (response) {
+            console.log('Error: ' + response.result.error.message);
+        });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div className="App-header">
+                    <table style={{width: '100%'}}>
+                        <tr>
+                            <th style={{float: 'left'}}>
+                                <tr>
+                                    <td>
+                                        <img src={logo} className="App-logo" alt="logo"/>
+                                    </td>
+                                    <td>
+                                        <h2 style={{'color': 'black'}}>MANAS Interviewer</h2>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th style={{float: 'right'}}>
+                                <ProfileHeader onSigninStatusChange={this.updateSigninStatus}
+                                               apiKey={API_KEY} clientId={CLIENT_ID}
+                                               discoveryDocs={DISCOVERY_DOCS} scope={SCOPES}/>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div className="App-intro">
+                    <ConditionalDisplay condition={this.state.isSignedin}>
+                        <div>
+                            <Timer/>
+                            <Sessions/>
+                        </div>
+                    </ConditionalDisplay>
+                </div>
+                {
+                    this.state.rows &&
+                    <ul>
+                        {this.state.rows.map((row) => <li key={row}>{row}</li>)}
+                    </ul>
+                }
+
+            </div>
+        );
+    }
 }
 
 export default App;
