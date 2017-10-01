@@ -7,6 +7,7 @@ import {API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES, SPREADSHEET_ID} from './sens
 import ProfileHeader from "./components/ProfileHeader";
 import Sittings from "./components/Sittings";
 import Sitting from "./components/Sitting";
+import BackendlessNotificationPropagator from './scheduler/notification/BackendlessNotificationPropagator';
 
 class App extends Component {
     constructor(props) {
@@ -67,13 +68,19 @@ class App extends Component {
                 <div className="App-intro">
                     {
                         this.state.isSignedin === true ? (
-                            this.state.mySitting ? (
-                                <Sitting interviewerProfile={this.state.interviewerProfile}
-                                         onNotInSitting={() => this.setState({mySitting: null})}/>
-                            ) : (
-                                <Sittings interviewerProfile={this.state.interviewerProfile}
-                                          onAlreadyInSitting={(sitting) => this.setState({mySitting: sitting})}/>
-                            )
+                            <div>
+                                <BackendlessNotificationPropagator/>
+
+                                {
+                                    this.state.mySitting ? (
+                                        <Sitting interviewerProfile={this.state.interviewerProfile}
+                                                 onNotInSitting={() => this.setState({mySitting: null})}/>
+                                    ) : (
+                                        <Sittings interviewerProfile={this.state.interviewerProfile}
+                                                  onAlreadyInSitting={(sitting) => this.setState({mySitting: sitting})}/>
+                                    )
+                                }
+                            </div>
                         ) : (
                             null
                         )
