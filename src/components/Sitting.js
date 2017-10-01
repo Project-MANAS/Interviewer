@@ -143,7 +143,7 @@ class Sitting extends Component {
                     <div>
                         <div className='App-Card'>
                             <p style={{display: 'inline-block', float: 'left'}}>
-                                Team ID: {this.state.mySitting.id}
+                                Sitting ID: {this.state.mySitting.id}
                             </p>
                             <div style={{display: 'inline-block', float: 'right'}}>
                                 <p style={{display: 'inline-block'}}>

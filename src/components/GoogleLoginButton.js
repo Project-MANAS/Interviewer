@@ -49,21 +49,22 @@ class GoogleLoginButton extends Component {
     render() {
         return (
             this.state.isLogedIn !== undefined && this.state.isLogedIn !== null ? (
-                <div>
+                <div style={{overflow: 'hidden'}}>
+                    <p style={{fontWeight: 'bold'}}>Google</p>
                     <button id="authorize-button" className='login'
-                            style={{display: this.state.isLogedIn ? 'none' : 'block'}}
+                            style={{display: this.state.isLogedIn ? 'none' : 'block', padding: '4px 16px'}}
                             onClick={() => gapi.auth2.getAuthInstance().signIn()}>
-                        Login
+                        LOGIN
                     </button>
                     <button id="signout-button" className='sign_out'
                             style={{display: this.state.isLogedIn ? 'inline-block' : 'none'}}
                             onClick={() => gapi.auth2.getAuthInstance().signOut()}>
-                        Sign Out
+                        SIGN OUT
                     </button>
                 </div>
             ) : (
-                <div>
-                    <p className='loading' style={{display: 'block'}}>
+                <div style={{margin: '8px'}}>
+                    <p className='loading' style={{display: 'block', padding: '4px 16px'}}>
                         Loading...
                     </p>
                 </div>

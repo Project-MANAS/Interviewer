@@ -2,6 +2,13 @@
     text-align: center;
 }
 
+.App-Brand {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 8px;
+    padding: 8px;
+}
+
 .App-logo {
     animation: App-logo-spin infinite 4s ease-in-out;
     height: 64px;
@@ -9,10 +16,16 @@
 
 .App-header {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    padding: 0px 0px;
     background-color: white;
-    padding-left: 8px;
-    padding-right: 8px;
     color: white;
+    display: block;
+    width: 100%;
+}
+
+.AppHeaderContainer {
+    display: table;
+    width: 100%;
 }
 
 .App-intro {
@@ -28,6 +41,13 @@
     overflow: hidden;
     padding: 8px;
     margin: 8px;
+}
+
+.App-Elevated {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 p {

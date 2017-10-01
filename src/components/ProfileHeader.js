@@ -1,5 +1,4 @@
 /* global gapi */
-import ConditionalDisplay from "./ConditionalDisplay";
 import GoogleLoginButton from "./GoogleLoginButton";
 import InterviewerSignIn from "./InterviewerSignin";
 import React, {Component} from "react";
@@ -27,24 +26,26 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <table style={{color: 'black', fontSize: '14px'}}>
-                <tbody>
-                <tr>
-                    <ConditionalDisplay style={{display: 'inline-block'}} condition={this.state.isSignedInToGoogle}>
+            <div className="App-Elevated" style={{color: 'black', fontSize: '14px', background: 'lemonchiffon'}}>
+                <div>
+                    {
+                        this.state.isSignedInToGoogle &&
                         <div style={{display: 'inline-block'}}>
                             <ProfileInfo style={{display: 'inline-block'}}
                                          interviewerProfile={this.state.interviewerProfile}/>
-                            <InterviewerSignIn onSigninStatusChange={this.onInterviewerSigninStatusChange}/>
                         </div>
-                    </ConditionalDisplay>
+                    }
                     <div style={{display: 'inline-block', float: 'right'}}>
                         <GoogleLoginButton onSigninStatusChange={this.updateGoogleSigninStatus}
                                            apiKey={this.props.apiKey} clientId={this.props.clientId}
                                            discoveryDocs={this.props.discoveryDocs} scope={this.props.scope}/>
                     </div>
-                </tr>
-                </tbody>
-            </table>
+                </div>
+                {
+                    this.state.isSignedInToGoogle &&
+                    <InterviewerSignIn onSigninStatusChange={this.onInterviewerSigninStatusChange}/>
+                }
+            </div>
 
         );
 

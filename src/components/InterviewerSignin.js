@@ -57,14 +57,14 @@ class InterviewerSignIn extends Component {
             [this.googleProfile.getName(), this.googleProfile.getEmail(), registerDivision]
         ]).then(
             function (response) {
-                if (response.status === 200 && response.result.updates.updatedCells === 3) {
+                if (response.statusMsg === 200 && response.result.updates.updatedCells === 3) {
                     this.onMySigninStatusChange(registerDivision);
                 } else {
                     this.onMySigninStatusChange(null, 'Failed to signup');
                 }
             }.bind(this),
             function (response) {
-                if (response.status === 403) {
+                if (response.statusMsg === 403) {
                     this.onMySigninStatusChange(null, 'Authentication failure: ' +
                         'Make sure you have member level access to the MANAS Drive');
                 } else {
@@ -82,29 +82,23 @@ class InterviewerSignIn extends Component {
                 break;
             case null:
                 result = (
-                    <tr>
-                        <tr>
-                            <tr>
-                                Looks like you've not registered as an interviewer yet
-                            </tr>
-                            <tr>
-                                <p style={{display: 'inline-block', margin: '8px'}}>Select your division:</p>
-                                <select style={{display: 'inline-block', margin: '8px'}}
-                                        onChange={(event) => {
-                                            this.setState({selectedDivision: event.target.value})
-                                        }}>
-                                    {DIVISIONS.map((division => <option key={division} value={division}>
-                                        {division}</option>))}
-                                </select>
-                                <button style={{display: 'inline-block', margin: '12px'}} className='login'
-                                        onClick={this.register}>Register
-                                </button>
-                            </tr>
-                            <tr>
-                                {this.state.status}
-                            </tr>
-                        </tr>
-                    </tr>
+                    <div>
+                        <p>Looks like you've not registered as an interviewer yet</p>
+                        <div>
+                            <p style={{display: 'inline-block'}}>Select your division:</p>
+                            <select style={{display: 'inline-block'}}
+                                    onChange={(event) => {
+                                        this.setState({selectedDivision: event.target.value})
+                                    }}>
+                                {DIVISIONS.map((division => <option key={division} value={division}>
+                                    {division}</option>))}
+                            </select>
+                            <button style={{display: 'inline-block'}} className='login'
+                                    onClick={this.register}>Register
+                            </button>
+                        </div>
+                        <p>{this.state.statusMsg}</p>
+                    </div>
                 );
                 break;
         }

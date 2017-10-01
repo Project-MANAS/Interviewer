@@ -45,25 +45,18 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="App-header">
-                    <table style={{width: '100%'}}>
-                        <tr>
-                            <th style={{float: 'left'}}>
-                                <tr>
-                                    <td>
-                                        <img src={logo} className="App-logo" alt="logo"/>
-                                    </td>
-                                    <td>
-                                        <h2 style={{'color': 'black'}}>MANAS Interviewer</h2>
-                                    </td>
-                                </tr>
-                            </th>
-                            <th style={{float: 'right'}}>
-                                <ProfileHeader onSigninStatusChange={this.updateSigninStatus}
-                                               apiKey={API_KEY} clientId={CLIENT_ID}
-                                               discoveryDocs={DISCOVERY_DOCS} scope={SCOPES}/>
-                            </th>
-                        </tr>
-                    </table>
+                    <div className="AppHeaderContainer">
+                        <div className="App-Brand">
+                            <img style={{display: 'block-inline', float: 'left'}}
+                                 src={logo} className="App-logo" alt="logo"/>
+                            <h2 style={{display: 'table-cell', color: 'black', padding: '20px'}}>MANAS Interviewer</h2>
+                        </div>
+                        <div style={{float: 'right'}}>
+                            <ProfileHeader onSigninStatusChange={this.updateSigninStatus}
+                                           apiKey={API_KEY} clientId={CLIENT_ID}
+                                           discoveryDocs={DISCOVERY_DOCS} scope={SCOPES}/>
+                        </div>
+                    </div>
                 </div>
                 <div className="App-intro">
                     {
