@@ -27,7 +27,8 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <table style={{color: 'black'}}>
+            <table style={{color: 'black', fontSize: '14px'}}>
+                <tbody>
                 <tr>
                     <ConditionalDisplay style={{display: 'inline-block'}} condition={this.state.isSignedInToGoogle}>
                         <div style={{display: 'inline-block'}}>
@@ -42,6 +43,7 @@ class ProfileHeader extends Component {
                                            discoveryDocs={this.props.discoveryDocs} scope={this.props.scope}/>
                     </div>
                 </tr>
+                </tbody>
             </table>
 
         );

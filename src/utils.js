@@ -58,12 +58,11 @@ export const appendToSheet = (sheet, range, rows) => {
     return gapi.client.sheets.spreadsheets.values.append(
         {
             spreadsheetId: SPREADSHEET_ID,
+            range: sheet.name + "!" + range,
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
-            range: sheet.name + "!" + range,
+            includeValuesInResponse: true,
             resource: {
-                range: sheet.name + "!" + range,
-                majorDimension: 'ROWS',
                 values: rows
             }
         }

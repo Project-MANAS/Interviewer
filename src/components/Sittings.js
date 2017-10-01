@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import SessionTimer from "./SessionTimer";
-import {fetchSittings} from "../utils";
+import {appendToSheet, fetchSittings} from "../utils";
+import {SHEETS} from "../sensitive_constants";
+import moment from "moment";
 
 class Sittings extends Component {
     constructor(props) {
@@ -8,6 +10,9 @@ class Sittings extends Component {
         this.state = {activeDivisionSittings: undefined, divisionSittings: undefined, errorMessage: undefined};
         this.joinSession = this.joinSession.bind(this);
         this.refresh = this.refresh.bind(this);
+        this.add = this.add.bind(this);
+        this.onAddSuccess = this.onAddSuccess.bind(this);
+        this.onAddFailure = this.onAddFailure.bind(this);
     }
 
     componentDidMount() {
@@ -16,6 +21,27 @@ class Sittings extends Component {
 
     joinSession(sessionId) {
 
+    }
+
+    onAddSuccess(response) {
+        console.log(response);
+    }
+
+    onAddFailure(response) {
+        console.error(response);
+    }
+
+    add() {
+        appendToSheet(
+            SHEETS.Sittings, "A:E", [
+                [
+                    "5",
+                    this.props.interviewerProfile.division,
+                    moment(new Date()).format("MM/DD/YYYY HH:mm:ss"), "",
+                    this.props.interviewerProfile.googleProfile.getEmail()
+                ]
+            ]
+        ).then(this.onAddSuccess, this.onAddFailure);
     }
 
     refresh() {
@@ -32,42 +58,48 @@ class Sittings extends Component {
         return (
             <div>
                 {
-                    this.state.divisionSittings ?
-                        <table>
-                            <thead>
-                            <tr>
-                                <th><h3>Active {this.props.interviewerProfile.division} Sessions</h3></th>
-                                <th>
-                                    <button onClick={this.refresh}>Refresh</button>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Interviewers</th>
-                                <th>Duration</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                this.state.divisionSittings.map(
-                                    (sitting) =>
-                                        <tr key={sitting.id}>
-                                            <td>
-                                                {
-                                                    sitting.interviewerEmails.map((email) => <tr
-                                                        key={email}>{email}</tr>)
-                                                }
-                                            </td>
-                                            <td><SessionTimer startTime={sitting.startTime}
-                                                              endTime={sitting.endTime}/>
-                                            </td>
-                                            <td>
-                                                <button onClick={() => this.joinSession(sitting.id)}>Join</button>
-                                            </td>
-                                        </tr>
-                                )
-                            }
-                            </tbody>
-                        </table>
+                    this.state.activeDivisionSittings ?
+                        <div className="App-Card">
+                            <div style={{overflow: "hidden"}}>
+                                <h3 style={{float: 'left', display: 'inline-block'}}>
+                                    Active {this.props.interviewerProfile.division} Sittings</h3>
+                                <button style={{float: "right", display: 'inline-block'}} onClick={this.add}>
+                                    CREATE
+                                </button>
+                                <button style={{float: "right", display: 'inline-block'}} onClick={this.refresh}>
+                                    REFRESH
+                                </button>
+                            </div>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Interviewers</th>
+                                    <th>Duration</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    this.state.activeDivisionSittings.map(
+                                        (sitting) =>
+                                            <tr key={sitting.id}>
+                                                <td>
+                                                    {
+                                                        sitting.interviewerEmails.map((email) => <tr
+                                                            key={email}>{email}</tr>)
+                                                    }
+                                                </td>
+                                                <td><SessionTimer startTime={sitting.startTime}
+                                                                  endTime={sitting.endTime}/>
+                                                </td>
+                                                <td>
+                                                    <button onClick={() => this.joinSession(sitting.id)}>Join</button>
+                                                </td>
+                                            </tr>
+                                    )
+                                }
+                                </tbody>
+                            </table>
+                        </div>
                         :
                         this.state.errorMessage ?
                             <p>

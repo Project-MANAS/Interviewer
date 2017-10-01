@@ -7,7 +7,7 @@ class SessionTimer extends Component {
         const endDate = this.props.endTime || new Date();
         const duration = moment.duration(endDate - this.props.startTime);
         this.state = {
-            time: moment.utc(duration.asMilliseconds()).format("hh:mm:ss")
+            time: moment.utc(duration.asMilliseconds()).format("HH:mm:ss")
         };
     }
 
@@ -27,7 +27,7 @@ class SessionTimer extends Component {
     tick() {
         const duration = moment.duration(new Date() - this.props.startTime);
         this.setState({
-            time: moment.utc(duration.asMilliseconds()).format("hh:mm:ss")
+            time: moment.utc(duration.asMilliseconds()).format("HH:mm:ss")
         });
     }
 

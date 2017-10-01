@@ -64,8 +64,13 @@ class InterviewerSignIn extends Component {
                 }
             }.bind(this),
             function (response) {
-                this.onMySigninStatusChange(null, 'Failed to signup: ' + response.result.error.message);
-            }
+                if (response.status === 403) {
+                    this.onMySigninStatusChange(null, 'Authentication failure: ' +
+                        'Make sure you have member level access to the MANAS Drive');
+                } else {
+                    this.onMySigninStatusChange(null, 'Failed to signup: ' + response.result.error.message);
+                }
+            }.bind(this)
         );
     }
 
