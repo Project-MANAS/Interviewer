@@ -5,7 +5,8 @@ import './App.css';
 
 import {API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES, SPREADSHEET_ID} from './sensitive_constants';
 import ProfileHeader from "./components/ProfileHeader";
-import Sessions from "./components/Sessions";
+import Sittings from "./components/Sittings";
+import Sitting from "./components/Sitting";
 
 class App extends Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class App extends Component {
     updateSigninStatus(isSignedin, interviewerProfile) {
         this.setState({isSignedin, interviewerProfile});
     }
-
 
     listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
@@ -66,10 +66,17 @@ class App extends Component {
                 </div>
                 <div className="App-intro">
                     {
-                        this.state.isSignedin === true ?
-                            <Sessions interviewerProfile={this.state.interviewerProfile}/>
-                            :
+                        this.state.isSignedin === true ? (
+                            this.state.mySitting ? (
+                                <Sitting interviewerProfile={this.state.interviewerProfile}
+                                         onNotInSitting={() => this.setState({mySitting: null})}/>
+                            ) : (
+                                <Sittings interviewerProfile={this.state.interviewerProfile}
+                                          onAlreadyInSitting={(sitting) => this.setState({mySitting: sitting})}/>
+                            )
+                        ) : (
                             null
+                        )
                     }
                 </div>
                 {
