@@ -35,21 +35,26 @@ class BackendlessNotificationPropagator extends Component {
     }
 
 
-
     initBackendless() {
         console.log("Backendless loaded");
         Backendless.serverURL = "https://api.backendless.com";
         Backendless.initApp(BACKENDLESS_APPLICATION_ID, BACKENDLESS_API_KEY);
         console.log("Backendless initialized");
-        var whereClause = "registrationNumber = '140905506'";
-        var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause( whereClause );
+        let regArray = ['140905506', '140905023', '140905506'];
+        let deviceArray = [];
+        regArray.forEach(function (regNum) {
+            var whereClause = "registrationNumber = '"+regNum+"'";
+            var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause(whereClause);
+            let result = Backendless.Data.of(UserTable).findSync(queryBuilder);
+            deviceArray.push(result[0].deviceToken);
+        });
+
         /*
         Backendless.Data.of(UserTable).find(queryBuilder).then(function (result) {
             console.log(result[0].deviceToken);
         });
         */
-        let result = Backendless.Data.of(UserTable).findSync(queryBuilder);
-        let deviceId = result[0].deviceToken;
+
         const channel = "default",
             message = "Hello, world ",
             publishOptions = new Backendless.PublishOptions({
@@ -61,7 +66,7 @@ class BackendlessNotificationPropagator extends Component {
                 }
             }),
             deliveryOptions = new Backendless.DeliveryOptions({
-                pushSinglecast: [deviceId]
+                pushSinglecast: deviceArray
             });
 
         const messageStatus = Backendless.Messaging.publishSync(channel,

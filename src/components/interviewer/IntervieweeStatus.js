@@ -7,7 +7,7 @@ const IntervieweeStatus = (props) => {
         return (
             <div>
                 {
-                    this.props.interviews.map((interview) =>
+                    props.interviews.map((interview) =>
                         <tr>
                             <td>
                                 {interview.sittingId}
