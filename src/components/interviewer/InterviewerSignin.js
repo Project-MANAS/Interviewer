@@ -14,6 +14,9 @@ class InterviewerSignIn extends Component {
 
         this.googleProfile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
         this.props = props;
+    }
+
+    componentDidMount() {
         this.onMySigninStatusChange();
         this.fetchCredentials();
     }

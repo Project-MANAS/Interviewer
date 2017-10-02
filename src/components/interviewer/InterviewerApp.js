@@ -5,7 +5,7 @@ import Sittings from "./Sittings";
 
 class InterviewerApp extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {mySitting: null};
     }
 
