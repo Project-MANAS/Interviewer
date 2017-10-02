@@ -61,7 +61,7 @@ export const fetchSittings = (interviewerProfile, onResult) => {
                         };
                         const interviewers = sitting.interviewerEmails;
                         for (let i = 4; i < row.length; i++) {
-                            if (row[i] && row[i] === "")
+                            if (row[i] === "")
                                 break;
                             else
                                 interviewers.push(row[i]);

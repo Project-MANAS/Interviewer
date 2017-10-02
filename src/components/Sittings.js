@@ -11,7 +11,7 @@ class Sittings extends Component {
             divisionSittings: undefined,
             statusMsg: "Fetching active " + props.interviewerProfile.division + " sittings..."
         };
-        this.joinSession = this.joinSession.bind(this);
+        this.joinSitting = this.joinSitting.bind(this);
         this.refresh = this.refresh.bind(this);
         this.add = this.add.bind(this);
         this.onAddSuccess = this.onAddSuccess.bind(this);
@@ -22,8 +22,22 @@ class Sittings extends Component {
         this.refresh();
     }
 
-    joinSession(sessionId) {
-
+    joinSitting(sitting) {
+        const rowIndex = parseInt(sitting.id) + 1;
+        const interviewerEmailsBaseIndex = 4;
+        const colIndex = parseInt(interviewerEmailsBaseIndex + sitting.interviewerEmails.length);
+        updateSheet(
+            SHEETS.Sittings,
+            String.fromCharCode("A".charCodeAt(0) + colIndex) + rowIndex,
+            [[this.props.interviewerProfile.googleProfile.getEmail()]]
+        ).then(
+            function (response) {
+                this.refresh();
+            }.bind(this),
+            function (response) {
+                this.setState({statusMsg: 'Failed join sitting: ' + response.result.error.message});
+            }.bind(this)
+        );
     }
 
     onAddSuccess(response) {
@@ -71,7 +85,8 @@ class Sittings extends Component {
                 this.setState({
                     divisionSittings,
                     activeDivisionSittings,
-                    statusMsg: errorMessage && "There was a problem fetching your division's active sittings:" + errorMessage
+                    statusMsg: errorMessage && "There was a problem fetching your division's active sittings:" +
+                    errorMessage.result.error.message
                 });
                 if (myActiveSitting)
                     this.props.onAlreadyInSitting(myActiveSitting);
@@ -82,7 +97,6 @@ class Sittings extends Component {
         return (
             <div>
                 {
-                    this.state.activeDivisionSittings &&
                     <div className="App-Card">
                         <div style={{overflow: "hidden"}}>
                             <h3 style={{float: 'left', display: 'inline-block'}}>
@@ -103,7 +117,7 @@ class Sittings extends Component {
                             </thead>
                             <tbody>
                             {
-                                this.state.activeDivisionSittings.map(
+                                this.state.activeDivisionSittings && this.state.activeDivisionSittings.map(
                                     (sitting) =>
                                         <tr key={sitting.id}>
                                             <td>
@@ -116,18 +130,18 @@ class Sittings extends Component {
                                                               endTime={sitting.endTime}/>
                                             </td>
                                             <td>
-                                                <button onClick={() => this.joinSession(sitting.id)}>Join</button>
+                                                <button onClick={() => this.joinSitting(sitting)}>Join</button>
                                             </td>
                                         </tr>
                                 )
                             }
                             </tbody>
                         </table>
+                        {
+                            this.state.statusMsg &&
+                            <p>{this.state.statusMsg}</p>
+                        }
                     </div>
-                }
-                {
-                    this.state.statusMsg &&
-                    <p>{this.state.statusMsg}</p>
                 }
             </div>
         );

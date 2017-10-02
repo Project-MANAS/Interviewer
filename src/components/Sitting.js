@@ -64,7 +64,7 @@ class Sitting extends Component {
         this.setState({
             schedules: undefined,
             divisionSchedules: undefined,
-            errorMessage: "Failed to fetch schedules:" + response
+            errorMessage: "Failed to fetch schedules:" + response.result.error.message
         });
     }
 
@@ -121,15 +121,20 @@ class Sitting extends Component {
             interviews: null,
             divisionInterviews: null,
             myInterview: null,
-            errorMessage: "Failed to fetch interviews: " + response,
+            errorMessage: "Failed to fetch interviews: " + response.result.error.message,
         });
     }
 
     refresh() {
         fetchSittings(this.props.interviewerProfile,
-            (sittings, divisionSittings, activeDivisionSittings, myActiveSitting, errorMessage) => {
-                this.setState({divisionSittings, activeDivisionSittings, mySitting: myActiveSitting, errorMessage});
-                if (!errorMessage && myActiveSitting === null) {
+            (sittings, divisionSittings, activeDivisionSittings, myActiveSitting, errorResponse) => {
+                this.setState({
+                    divisionSittings,
+                    activeDivisionSittings,
+                    mySitting: myActiveSitting,
+                    statusMsg: errorResponse && errorResponse.result.error.message
+                });
+                if (!errorResponse && myActiveSitting === null) {
                     this.props.onNotInSitting();
                 } else {
                     fetchFromSheet(SHEETS.InterviewSchedules, 'K5:R')
