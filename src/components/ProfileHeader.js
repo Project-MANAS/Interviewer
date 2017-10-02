@@ -1,6 +1,5 @@
-/* global gapi */
 import GoogleLoginButton from "./GoogleLoginButton";
-import InterviewerSignIn from "./InterviewerSignin";
+import InterviewerSignIn from "./interviewer/InterviewerSignin";
 import React, {Component} from "react";
 import ProfileInfo from "./ProfileInfo";
 

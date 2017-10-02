@@ -1,6 +1,6 @@
 /* global Backendless */
-import React, {Component} from 'react';
-import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID} from "../../sensitive_constants";
+import {Component} from 'react';
+import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID} from "../../../sensitive_constants";
 
 class BackendlessNotificationPropagator extends Component {
     constructor(props) {

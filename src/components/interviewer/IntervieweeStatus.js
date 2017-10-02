@@ -1,4 +1,4 @@
-import SessionTimer from "./SessionTimer";
+import SessionTimer from "../SessionTimer";
 import React from 'react';
 
 const IntervieweeStatus = (props) => {

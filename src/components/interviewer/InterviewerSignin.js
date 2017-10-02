@@ -1,7 +1,7 @@
 /* global gapi */
 import React, {Component} from 'react';
-import {DIVISIONS, SHEETS} from "../sensitive_constants";
-import {appendToSheet, fetchFromSheet} from "../utils";
+import {DIVISIONS, SHEETS} from "../../sensitive_constants";
+import {appendToSheet, fetchFromSheet} from "../../utils";
 
 
 class InterviewerSignIn extends Component {
@@ -100,6 +100,9 @@ class InterviewerSignIn extends Component {
                         <p>{this.state.statusMsg}</p>
                     </div>
                 );
+                break;
+            default:
+                result = null;
                 break;
         }
         return (

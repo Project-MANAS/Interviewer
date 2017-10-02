@@ -1,5 +1,4 @@
 /* global gapi */
-import React from 'react';
 import {SHEETS, SPREADSHEET_ID} from "./sensitive_constants";
 import moment from "moment";
 
@@ -77,7 +76,7 @@ export const fetchSittings = (interviewerProfile, onResult) => {
                 const myActiveSitting = myActiveSittings.length >= 1 ? myActiveSittings[0] : null;
                 onResult(sittings, divisionSittings, activeDivisionSittings, myActiveSitting, null);
             }
-        }.bind(this), function (response) {
+        }, function (response) {
             onResult(
                 null,
                 null,

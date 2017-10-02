@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SessionTimer from "./SessionTimer";
-import {appendToSheet, fetchSittings, googleDateFormat, updateSheet} from "../utils";
-import {SHEETS} from "../sensitive_constants";
+import SessionTimer from "../SessionTimer";
+import {appendToSheet, fetchSittings, googleDateFormat, updateSheet} from "../../utils";
+import {SHEETS} from "../../sensitive_constants";
 
 class Sittings extends Component {
     constructor(props) {
@@ -23,9 +23,9 @@ class Sittings extends Component {
     }
 
     joinSitting(sitting) {
-        const rowIndex = parseInt(sitting.id) + 1;
+        const rowIndex = parseInt(sitting.id, 10) + 1;
         const interviewerEmailsBaseIndex = 4;
-        const colIndex = parseInt(interviewerEmailsBaseIndex + sitting.interviewerEmails.length);
+        const colIndex = parseInt(interviewerEmailsBaseIndex + sitting.interviewerEmails.length, 10);
         updateSheet(
             SHEETS.Sittings,
             String.fromCharCode("A".charCodeAt(0) + colIndex) + rowIndex,

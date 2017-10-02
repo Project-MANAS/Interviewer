@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SessionTimer from "./SessionTimer";
-import {fetchFromSheet, fetchSittings, googleDateFormat, updateSheet} from "../utils";
-import {SHEETS} from "../sensitive_constants";
+import SessionTimer from "../SessionTimer";
+import {fetchFromSheet, fetchSittings, googleDateFormat, updateSheet} from "../../utils";
+import {SHEETS} from "../../sensitive_constants";
 import IntervieweeSchedule from "./IntervieweeSchedule";
 
 class Sitting extends Component {
@@ -144,7 +144,7 @@ class Sitting extends Component {
     }
 
     endSitting() {
-        const rowIndex = parseInt(this.state.mySitting.id) + 1;
+        const rowIndex = parseInt(this.state.mySitting.id, 10) + 1;
         updateSheet(SHEETS.Sittings, "D" + rowIndex, [[googleDateFormat(new Date())]])
             .then(
                 function (response) {
