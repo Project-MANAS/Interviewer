@@ -1,10 +1,13 @@
 /* global Backendless */
 /*global PublishOptions*/
 /*global PublishOptionsHeaders*/
-/*global android-ticker-text*/
-/*global ANDROID_TICKER_TEXT_TAG*/
 import React, {Component} from 'react';
 import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID} from "../../sensitive_constants";
+
+function UserTable() {
+    this.registrationNumber = "";
+    this.deviceToken = "";
+}
 
 class BackendlessNotificationPropagator extends Component {
     constructor(props) {
@@ -31,27 +34,40 @@ class BackendlessNotificationPropagator extends Component {
         }
     }
 
+
+
     initBackendless() {
         console.log("Backendless loaded");
         Backendless.serverURL = "https://api.backendless.com";
         Backendless.initApp(BACKENDLESS_APPLICATION_ID, BACKENDLESS_API_KEY);
-        var channel = "default",
-            message = "Hello, world!",
+        console.log("Backendless initialized");
+        var whereClause = "registrationNumber = '140905506'";
+        var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause( whereClause );
+        /*
+        Backendless.Data.of(UserTable).find(queryBuilder).then(function (result) {
+            console.log(result[0].deviceToken);
+        });
+        */
+        let result = Backendless.Data.of(UserTable).findSync(queryBuilder);
+        let deviceId = result[0].deviceToken;
+        const channel = "default",
+            message = "Hello, world ",
             publishOptions = new Backendless.PublishOptions({
                 headers: {
-                    ANDROID_TICKER_TEXT_TAG: "Your just got a push notification lol",
-                    ANDROID_CONTENT_TITLE_TAG: "This is a notification title",
-                    ANDROID_CONTENT_TEXT_TAG: "Push notifications are cool"
+                    'android-content-sound': "Home",
+                    'android-ticker-text': "Your just got a push notification",
+                    'android-content-title': "This is a notification title",
+                    'android-content-text': "Push notifications are cool"
                 }
+            }),
+            deliveryOptions = new Backendless.DeliveryOptions({
+                pushSinglecast: [deviceId]
             });
 
-        Backendless.Messaging.publish(channel, message, publishOptions)
-            .then(function (messageStatus) {
-                console.log("message has been published, message status - " + messageStatus.status);
-            })
-            .catch(function (error) {
-                console.log("error - " + error.message);
-            });
+        const messageStatus = Backendless.Messaging.publishSync(channel,
+            message,
+            publishOptions,
+            deliveryOptions);
 
     }
 
