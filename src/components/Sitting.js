@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SessionTimer from "./SessionTimer";
-import {fetchFromSheet, fetchSittings} from "../utils";
+import {fetchFromSheet, fetchSittings, googleDateFormat, updateSheet} from "../utils";
 import {SHEETS} from "../sensitive_constants";
 import IntervieweeSchedule from "./IntervieweeSchedule";
 
@@ -8,6 +8,7 @@ class Sitting extends Component {
     constructor(props) {
         super(props);
         this.refresh = this.refresh.bind(this);
+        this.endSitting = this.endSitting.bind(this);
         this.onStartInterview = this.onStartInterview.bind(this);
         this.onScheduleFetchSuccess = this.onScheduleFetchSuccess.bind(this);
         this.onScheduleFetchFailure = this.onScheduleFetchFailure.bind(this);
@@ -137,6 +138,19 @@ class Sitting extends Component {
             });
     }
 
+    endSitting() {
+        const rowIndex = parseInt(this.state.mySitting.id) + 1;
+        updateSheet(SHEETS.Sittings, "D" + rowIndex, [[googleDateFormat(new Date())]])
+            .then(
+                function (response) {
+                    this.refresh();
+                }.bind(this),
+                function (response) {
+                    this.setState({errorMessage: 'Failed to end sitting: ' + response.result.error.message});
+                }.bind(this)
+            );
+    }
+
     render() {
         return (
             this.state.mySitting ? (
@@ -152,6 +166,9 @@ class Sitting extends Component {
                                 <SessionTimer style={{display: 'inline-block'}}
                                               startTime={this.state.mySitting.startTime}
                                               endTime={this.state.mySitting.endTime}/>
+                                <button style={{display: 'inline-block'}} onClick={this.endSitting}>
+                                    END SITTING
+                                </button>
                             </div>
                         </div>
                         <div>

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import SessionTimer from "./SessionTimer";
-import {appendToSheet, fetchSittings, updateSheet} from "../utils";
+import {appendToSheet, fetchSittings, googleDateFormat, updateSheet} from "../utils";
 import {SHEETS} from "../sensitive_constants";
-import moment from "moment";
 
 class Sittings extends Component {
     constructor(props) {
@@ -58,7 +57,7 @@ class Sittings extends Component {
                 [
                     "",
                     this.props.interviewerProfile.division,
-                    moment(new Date()).format("MM/DD/YYYY HH:mm:ss"), "",
+                    googleDateFormat(new Date()), "",
                     this.props.interviewerProfile.googleProfile.getEmail()
                 ]
             ]

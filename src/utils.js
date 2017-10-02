@@ -1,6 +1,7 @@
 /* global gapi */
 import React from 'react';
 import {SHEETS, SPREADSHEET_ID} from "./sensitive_constants";
+import moment from "moment";
 
 
 export const fetchFromSheet = (sheet, range) => {
@@ -86,6 +87,8 @@ export const fetchSittings = (interviewerProfile, onResult) => {
             );
         });
 };
+
+export const googleDateFormat = (date) => moment(new Date()).format("MM/DD/YYYY HH:mm:ss");
 
 
 // export const getUpdateRequest = (sheetId, rowIndex, columnIndex, rows) => {
