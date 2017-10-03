@@ -41,7 +41,7 @@ class GoogleLoginButton extends Component {
                 this.onSigninStatusChange(gapi.auth2.getAuthInstance().isSignedIn.get());
             }.bind(this),
             function (response) {
-                this.setState({statusMsg: "Failed to initialize Google API: " + response.error.message})
+                this.setState({statusMsg: "Failed to initialize Google API: " + JSON.stringify(response)})
             }.bind(this)
         );
     }

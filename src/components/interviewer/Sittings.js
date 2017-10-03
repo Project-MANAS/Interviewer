@@ -13,7 +13,7 @@ class Sittings extends Component {
         };
         this.joinSitting = this.joinSitting.bind(this);
         this.refresh = this.refresh.bind(this);
-        this.add = this.add.bind(this);
+        this.createSitting = this.createSitting.bind(this);
         this.onAddSuccess = this.onAddSuccess.bind(this);
         this.onAddFailure = this.onAddFailure.bind(this);
     }
@@ -43,7 +43,7 @@ class Sittings extends Component {
     onAddSuccess(response) {
         if (response.result && response.result.updates && response.result.updates.updatedRange) {
             const updatedRange = response.result.updates.updatedRange;
-            const rowNumber = updatedRange[updatedRange.length - 1];
+            const rowNumber = updatedRange.split(":")[1].substr(1);
             updateSheet(SHEETS.Sittings, "A" + rowNumber, [[rowNumber - 1]]).then(
                 function (response) {
                     this.refresh();
@@ -65,7 +65,7 @@ class Sittings extends Component {
         });
     }
 
-    add() {
+    createSitting() {
         appendToSheet(
             SHEETS.Sittings, "A:E", [
                 [
@@ -101,7 +101,7 @@ class Sittings extends Component {
                         <div style={{overflow: "hidden"}}>
                             <h3 style={{float: 'left', display: 'inline-block'}}>
                                 Active {this.props.interviewerProfile.division} Sittings</h3>
-                            <button style={{float: "right", display: 'inline-block'}} onClick={this.add}>
+                            <button style={{float: "right", display: 'inline-block'}} onClick={this.createSitting}>
                                 CREATE
                             </button>
                             <button style={{float: "right", display: 'inline-block'}} onClick={this.refresh}>
