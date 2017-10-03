@@ -50,7 +50,7 @@ class InterviewerSignIn extends Component {
                 this.onMySigninStatusChange(myDivision);
             }.bind(this), function (response) {
                 this.onMySigninStatusChange(null,
-                    'Error fetching interviewer credentials: ' + response.result.error.message);
+                    'Error fetching interviewer credentials: ' + JSON.stringify(response));
             });
     }
 
@@ -71,7 +71,7 @@ class InterviewerSignIn extends Component {
                     this.onMySigninStatusChange(null, 'Authentication failure: ' +
                         'Make sure you have member level access to the MANAS Drive');
                 } else {
-                    this.onMySigninStatusChange(null, 'Failed to signup: ' + response.result.error.message);
+                    this.onMySigninStatusChange(null, 'Failed to signup: ' + JSON.stringify(response));
                 }
             }.bind(this)
         );

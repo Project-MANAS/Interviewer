@@ -16,7 +16,7 @@ const IntervieweeStatus = (props) => {
                                 startTime={interview.startTime}
                                 endTime={interview.endTime}/>
                             <td>
-                                {interview.statusMsg}
+                                {interview.status}
                             </td>
                         </tr>
                     )
