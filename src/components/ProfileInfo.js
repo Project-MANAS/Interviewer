@@ -5,9 +5,9 @@ class ProfileInfo extends Component {
         let interviewerProfile = this.props.interviewerProfile;
         return (
             interviewerProfile &&
-            <table>
-                <tbody>
-                <td>
+            <div style={{overflow: 'hidden'}}>
+                <table style={{display: 'block-inline', float: 'left', margin: '8px'}}>
+                    <tbody>
                     <tr style={{margin: '8px'}}>
                         <td>Name:</td>
                         <td>{interviewerProfile.googleProfile.getName()}</td>
@@ -20,16 +20,12 @@ class ProfileInfo extends Component {
                         <td>Division:</td>
                         <td>{interviewerProfile.division || 'Unknown'}</td>
                     </tr>
-                </td>
-                <td>
-                    <tr style={{float: 'left', margin: '8px'}}>
-                        <img style={{height: '64px'}}
-                             src={interviewerProfile.googleProfile.getImageUrl()}
-                             alt='Google Profile'/>
-                    </tr>
-                </td>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                <img style={{display: 'block-inline', float: 'right', margin: '8px', height: '64px'}}
+                     src={interviewerProfile.googleProfile.getImageUrl()}
+                     alt='Google Profile'/>
+            </div>
         );
     }
 }

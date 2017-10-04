@@ -121,10 +121,12 @@ class Sittings extends Component {
                                     (sitting) =>
                                         <tr key={sitting.id}>
                                             <td>
-                                                {
-                                                    sitting.interviewerEmails.map((email) => <tr
-                                                        key={email}>{email}</tr>)
-                                                }
+                                                <ol>
+                                                    {
+                                                        sitting.interviewerEmails.map((email) => <li
+                                                            key={email}>{email}</li>)
+                                                    }
+                                                </ol>
                                             </td>
                                             <td><SessionTimer startTime={sitting.startTime}
                                                               endTime={sitting.endTime}/>

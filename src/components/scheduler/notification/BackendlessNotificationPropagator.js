@@ -1,7 +1,7 @@
 /* global Backendless */
 /*global PublishOptions*/
 /*global PublishOptionsHeaders*/
-import React, {Component} from 'react';
+import {Component} from 'react';
 import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID} from "../../../sensitive_constants";
 
 function UserTable() {

@@ -192,24 +192,13 @@ class Sitting extends Component {
                                     <tr>
                                         <th>Registration Number</th>
                                         <th>Name</th>
-                                        <th>
-                                            <tr>Preference 1</tr>
-                                            <tr>
-                                                <th>Division</th>
-                                                <th>Slot</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </th>
-                                        <th>
-                                            <tr>Preference 2</tr>
-                                            <tr>
-                                                <th>Division</th>
-                                                <th>Slot</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </th>
+                                        <th>Division</th>
+                                        <th>Slot</th>
+                                        <th>Status</th>
+                                        <th>Division</th>
+                                        <th>Slot</th>
+                                        <th>Status</th>
                                         <th/>
-                                        {/*:for 'START INTERVIEW'*/}
                                     </tr>
                                     </thead>
                                     <tbody>
