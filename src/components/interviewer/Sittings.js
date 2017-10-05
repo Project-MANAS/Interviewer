@@ -96,6 +96,7 @@ class Sittings extends Component {
     render() {
         return (
             <div>
+                <h3>Sittings</h3>
                 {
                     <div className="App-Card">
                         <div style={{overflow: "hidden"}}>

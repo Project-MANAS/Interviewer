@@ -5,12 +5,12 @@ import moment from "moment";
 const IntervieweePreferenceInfo = (props) => {
     const pref = props.pref;
     return [
-        <td>{pref.division}</td>
+        <td key='division'>{pref.division}</td>
         ,
-        <td><p>{pref.slot && moment(pref.slot).format("YYYY-MM-DD HH:mm:ss")}</p></td>
+        <td key='slot'>{pref.slot && moment(pref.slot).format("YYYY-MM-DD HH:mm:ss")}</td>
         ,
 
-        <td>{IntervieweeStatus({prefStatus: pref.status, interviews: props.interviews})}</td>
+        <td key='prefStatus'>{IntervieweeStatus({prefStatus: pref.status, interviews: props.interviews})}</td>
 
     ];
 };

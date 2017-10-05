@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import BackendlessNotificationPropagator from "../scheduler/notification/BackendlessNotificationPropagator";
 import Sitting from "./Sitting";
 import Sittings from "./Sittings";
 
@@ -12,7 +11,6 @@ class InterviewerApp extends Component {
     render() {
         return (
             <div>
-                <BackendlessNotificationPropagator/>
                 {
                     this.state.mySitting ? (
                         <Sitting interviewerProfile={this.props.interviewerProfile}

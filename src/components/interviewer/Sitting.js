@@ -160,6 +160,7 @@ class Sitting extends Component {
         return (
             this.state.mySitting ? (
                     <div>
+                        <h3>Sitting</h3>
                         <div className='App-Card'>
                             <p style={{display: 'inline-block', float: 'left'}}>
                                 Sitting ID: {this.state.mySitting.id}
@@ -199,16 +200,12 @@ class Sitting extends Component {
                                         <th>Preference 1</th>
                                         <th/>
                                         <th/>
-                                        <th/>
-                                        <th/>
                                         <th>Preference 2</th>
-                                        <th/>
-                                        <th/>
                                         <th/>
                                         <th/>
                                     </tr>
                                     <tr>
-                                        <th>Registration Number</th>
+                                        <th>Registration</th>
                                         <th>Name</th>
                                         <th>Division</th>
                                         <th>Slot</th>
@@ -224,6 +221,7 @@ class Sitting extends Component {
                                         this.state.divisionSchedules && this.state.divisionSchedules.map(
                                             (schedule) =>
                                                 <IntervieweeSchedule
+                                                    key={schedule.intervieweeReg}
                                                     schedule={schedule}
                                                     interviews={
                                                         this.state.interviews && this.state.interviews.filter(
