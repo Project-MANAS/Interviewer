@@ -78,8 +78,8 @@ class Sitting extends Component {
                     sittingId: row[1],
                     division: row[2],
                     interviewIndex: row[3],
-                    startTime: row[4] === "" ? null : new Date(row[4]),
-                    endTime: row[5] === "" ? null : new Date(row[5]),
+                    startTime: !row[4] || row[4] === "" ? null : new Date(row[4]),
+                    endTime: !row[5] || row[5] === "" ? null : new Date(row[5]),
                     status: row[6],
                     comments: row[7]
                 }));
@@ -171,6 +171,9 @@ class Sitting extends Component {
                                 <SessionTimer style={{display: 'inline-block'}}
                                               startTime={this.state.mySitting.startTime}
                                               endTime={this.state.mySitting.endTime}/>
+                                <button style={{display: 'inline-block'}} onClick={this.refresh}>
+                                    REFRESH
+                                </button>
                                 <button style={{display: 'inline-block'}} onClick={this.endSitting}>
                                     END SITTING
                                 </button>
@@ -189,6 +192,21 @@ class Sitting extends Component {
                                 <h5>Interviewees</h5>
                                 <table style={{fontSize: '10px'}}>
                                     <thead>
+                                    <tr>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th>Preference 1</th>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th>Preference 2</th>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                        <th/>
+                                    </tr>
                                     <tr>
                                         <th>Registration Number</th>
                                         <th>Name</th>

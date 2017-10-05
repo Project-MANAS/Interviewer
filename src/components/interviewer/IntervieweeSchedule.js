@@ -11,16 +11,18 @@ const IntervieweeSchedule = (props) => {
         <tr key={schedule.intervieweeReg}>
             <td>{schedule.intervieweeReg}</td>
             <td>{schedule.name}</td>
-            <td>
-                <IntervieweePreferenceInfo
-                    pref={schedule.pref1}
-                    interviews={interviewsOfDivision(props.interviews, schedule.pref1.division)}/>
-            </td>
-            <td>
-                <IntervieweePreferenceInfo
-                    pref={schedule.pref2}
-                    interviews={interviewsOfDivision(props.interviews, schedule.pref2.division)}/>
-            </td>
+            {
+                IntervieweePreferenceInfo({
+                    pref: schedule.pref1,
+                    interviews: interviewsOfDivision(props.interviews, schedule.pref1.division)
+                })
+            }
+            {
+                IntervieweePreferenceInfo({
+                    pref: schedule.pref2,
+                    interviews: interviewsOfDivision(props.interviews, schedule.pref2.division)
+                })
+            }
             <td>
                 <button onClick={() => props.onStartInterview(schedule)}>
                     START INTERVIEW
