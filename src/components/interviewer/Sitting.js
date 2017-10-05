@@ -22,7 +22,7 @@ class Sitting extends Component {
     }
 
     onStartInterview(schedule) {
-
+        this.props.onStartInterview && this.props.onStartInterview(schedule)
     }
 
     onScheduleFetchSuccess(response) {
