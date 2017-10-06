@@ -2,7 +2,8 @@
 /*global PublishOptions*/
 /*global PublishOptionsHeaders*/
 import {Component} from 'react';
-import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID} from "../../../sensitive_constants";
+import {BACKENDLESS_API_KEY, BACKENDLESS_APPLICATION_ID, SHEETS} from "../../../sensitive_constants";
+import {fetchFromSheet} from "../../../utils";
 
 function UserTable() {
     this.registrationNumber = "";
@@ -40,14 +41,44 @@ class BackendlessNotificationPropagator extends Component {
         Backendless.serverURL = "https://api.backendless.com";
         Backendless.initApp(BACKENDLESS_APPLICATION_ID, BACKENDLESS_API_KEY);
         console.log("Backendless initialized");
-        let regArray = ['140905506', '140905023', '140905506'];
-        let deviceArray = [];
-        regArray.forEach(function (regNum) {
-            var whereClause = "registrationNumber = '"+regNum+"'";
-            var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause(whereClause);
-            let result = Backendless.Data.of(UserTable).findSync(queryBuilder);
-            deviceArray.push(result[0].deviceToken);
+
+        //let regArray = ['140905506', '140905023', '140905506'];
+        let regArray = [];
+        fetchFromSheet(SHEETS.Scheduler, 'B22:G').then(function (response) {
+            const values = response.result.values;
+            values.forEach(function (row) {
+                if (row[row.length - 1] === "SCHEDULED") {
+                    console.log(row[0]);
+                    regArray.push(row[0]);
+                }
+            });
+            let deviceArray = [];
+
+            regArray.forEach(function (regNum) {
+                let whereClause = "registrationNumber = '" + regNum + "'";
+                let queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause(whereClause);
+                let result = Backendless.Data.of(UserTable).findSync(queryBuilder);
+                deviceArray.push(result[0].deviceToken);
+            });
+            const channel = "default",
+                message = "Hello world ",
+                publishOptions = new Backendless.PublishOptions({
+                    headers: {
+                        'android-content-sound': "Interview",
+                        'android-ticker-text': "pref2Confirm",
+                        'android-content-title': "This is a notification title",
+                        'android-content-text': "Push notifications are cool"
+                    }
+                }),
+                deliveryOptions = new Backendless.DeliveryOptions({
+                    pushSinglecast: deviceArray
+                });
+            if (deviceArray.length > 0) {
+                const messageStatus = Backendless.Messaging.publishSync(channel, message, publishOptions, deliveryOptions);
+            }
+
         });
+
 
         /*
         Backendless.Data.of(UserTable).find(queryBuilder).then(function (result) {
@@ -55,24 +86,8 @@ class BackendlessNotificationPropagator extends Component {
         });
         */
 
-        const channel = "default",
-            message = "Hello, world ",
-            publishOptions = new Backendless.PublishOptions({
-                headers: {
-                    'android-content-sound': "Home",
-                    'android-ticker-text': "Your just got a push notification",
-                    'android-content-title': "This is a notification title",
-                    'android-content-text': "Push notifications are cool"
-                }
-            }),
-            deliveryOptions = new Backendless.DeliveryOptions({
-                pushSinglecast: deviceArray
-            });
 
-        const messageStatus = Backendless.Messaging.publishSync(channel,
-            message,
-            publishOptions,
-            deliveryOptions);
+        //const messageStatus = Backendless.Messaging.publishSync(channel, message, publishOptions, deliveryOptions);
 
     }
 
