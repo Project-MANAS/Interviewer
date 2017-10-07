@@ -26,7 +26,13 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <div className="App-Elevated" style={{color: 'black', fontSize: '20px', background: 'lemonchiffon', height: '100%', box-shadow: '0px'}}>
+            <div className="App-Elevated" style={{
+                color: 'black',
+                fontSize: '20px',
+                background: 'lemonchiffon',
+                height: '100%',
+                boxShadow: '0px'
+            }}>
                 <div>
                     {
                         this.state.isSignedInToGoogle &&
