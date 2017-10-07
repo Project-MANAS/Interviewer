@@ -108,13 +108,7 @@ class InterviewerSignIn extends Component {
                 result = null;
                 break;
         }
-        return (
-            <table>
-                {
-                    result
-                }
-            </table>
-        );
+        return result;
     }
 }
 

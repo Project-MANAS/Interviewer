@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Sitting from "./Sitting";
 import Sittings from "./Sittings";
+import InterviewPage from "./InterviewPage";
 
 class InterviewerApp extends Component {
     constructor(props) {
@@ -12,16 +13,28 @@ class InterviewerApp extends Component {
         return (
             <div>
                 {
-                    this.state.mySitting ? (
-                        <Sitting interviewerProfile={this.props.interviewerProfile}
-                                 onNotInSitting={() => this.setState({mySitting: null})}/>
-                    ) : (
-                        <Sittings interviewerProfile={this.props.interviewerProfile}
-                                  onAlreadyInSitting={(sitting) => this.setState({mySitting: sitting})}/>
-                    )
+                    this.getActivePage()
                 }
             </div>
         );
+    }
+
+    getActivePage() {
+        if (this.state.schedule)
+            return (
+                <InterviewPage schedule={this.state.schedule}/>
+            );
+        else if (this.state.mySitting)
+            return (
+                <Sitting interviewerProfile={this.props.interviewerProfile}
+                         onNotInSitting={() => this.setState({mySitting: null})}
+                         onStartInterview={(schedule) => this.setState({schedule})}/>
+            );
+        else
+            return (
+                <Sittings interviewerProfile={this.props.interviewerProfile}
+                          onAlreadyInSitting={(sitting) => this.setState({mySitting: sitting})}/>
+            );
     }
 }
 

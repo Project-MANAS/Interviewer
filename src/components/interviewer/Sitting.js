@@ -22,7 +22,7 @@ class Sitting extends Component {
     }
 
     onStartInterview(schedule) {
-
+        this.props.onStartInterview && this.props.onStartInterview(schedule)
     }
 
     onScheduleFetchSuccess(response) {
@@ -78,8 +78,8 @@ class Sitting extends Component {
                     sittingId: row[1],
                     division: row[2],
                     interviewIndex: row[3],
-                    startTime: row[4] === "" ? null : new Date(row[4]),
-                    endTime: row[5] === "" ? null : new Date(row[5]),
+                    startTime: !row[4] || row[4] === "" ? null : new Date(row[4]),
+                    endTime: !row[5] || row[5] === "" ? null : new Date(row[5]),
                     status: row[6],
                     comments: row[7]
                 }));
@@ -160,6 +160,7 @@ class Sitting extends Component {
         return (
             this.state.mySitting ? (
                     <div>
+                        <h3>Sitting</h3>
                         <div className='App-Card'>
                             <p style={{display: 'inline-block', float: 'left'}}>
                                 Sitting ID: {this.state.mySitting.id}
@@ -171,6 +172,9 @@ class Sitting extends Component {
                                 <SessionTimer style={{display: 'inline-block'}}
                                               startTime={this.state.mySitting.startTime}
                                               endTime={this.state.mySitting.endTime}/>
+                                <button style={{display: 'inline-block'}} onClick={this.refresh}>
+                                    REFRESH
+                                </button>
                                 <button style={{display: 'inline-block'}} onClick={this.endSitting}>
                                     END SITTING
                                 </button>
@@ -190,26 +194,26 @@ class Sitting extends Component {
                                 <table style={{fontSize: '10px'}}>
                                     <thead>
                                     <tr>
-                                        <th>Registration Number</th>
-                                        <th>Name</th>
-                                        <th>
-                                            <tr>Preference 1</tr>
-                                            <tr>
-                                                <th>Division</th>
-                                                <th>Slot</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </th>
-                                        <th>
-                                            <tr>Preference 2</tr>
-                                            <tr>
-                                                <th>Division</th>
-                                                <th>Slot</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </th>
                                         <th/>
-                                        {/*:for 'START INTERVIEW'*/}
+                                        <th/>
+                                        <th/>
+                                        <th>Preference 1</th>
+                                        <th/>
+                                        <th/>
+                                        <th>Preference 2</th>
+                                        <th/>
+                                        <th/>
+                                    </tr>
+                                    <tr>
+                                        <th>Registration</th>
+                                        <th>Name</th>
+                                        <th>Division</th>
+                                        <th>Slot</th>
+                                        <th>Status</th>
+                                        <th>Division</th>
+                                        <th>Slot</th>
+                                        <th>Status</th>
+                                        <th/>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -217,6 +221,7 @@ class Sitting extends Component {
                                         this.state.divisionSchedules && this.state.divisionSchedules.map(
                                             (schedule) =>
                                                 <IntervieweeSchedule
+                                                    key={schedule.intervieweeReg}
                                                     schedule={schedule}
                                                     interviews={
                                                         this.state.interviews && this.state.interviews.filter(

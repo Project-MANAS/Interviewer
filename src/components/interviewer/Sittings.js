@@ -96,6 +96,7 @@ class Sittings extends Component {
     render() {
         return (
             <div>
+                <h3>Sittings</h3>
                 {
                     <div className="App-Card">
                         <div style={{overflow: "hidden"}}>
@@ -121,10 +122,12 @@ class Sittings extends Component {
                                     (sitting) =>
                                         <tr key={sitting.id}>
                                             <td>
-                                                {
-                                                    sitting.interviewerEmails.map((email) => <tr
-                                                        key={email}>{email}</tr>)
-                                                }
+                                                <ol>
+                                                    {
+                                                        sitting.interviewerEmails.map((email) => <li
+                                                            key={email}>{email}</li>)
+                                                    }
+                                                </ol>
                                             </td>
                                             <td><SessionTimer startTime={sitting.startTime}
                                                               endTime={sitting.endTime}/>

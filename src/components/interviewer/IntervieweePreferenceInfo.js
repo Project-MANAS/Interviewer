@@ -4,17 +4,15 @@ import moment from "moment";
 
 const IntervieweePreferenceInfo = (props) => {
     const pref = props.pref;
-    return (
-        <tr>
-            <td>{pref.division}</td>
-            <td><p>{pref.slot && moment(pref.slot).format("YYYY-MM-DD HH:mm:ss")}</p></td>
-            <td>
-                <IntervieweeStatus
-                    prefStatus={pref.statusMsg}
-                    interviews={props.interviews}/>
-            </td>
-        </tr>
-    );
+    return [
+        <td key='division'>{pref.division}</td>
+        ,
+        <td key='slot'>{pref.slot && moment(pref.slot).format("YYYY-MM-DD HH:mm:ss")}</td>
+        ,
+
+        <td key='prefStatus'>{IntervieweeStatus({prefStatus: pref.status, interviews: props.interviews})}</td>
+
+    ];
 };
 
 export default IntervieweePreferenceInfo;
