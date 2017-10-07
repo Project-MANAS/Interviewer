@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import SessionTimer from "../SessionTimer";
-import {appendToSheet, fetchSittings, googleDateFormat, updateSheet} from "../../utils";
+import {appendToSheet, googleDateFormat, updateSheet} from "../../utils";
 import {SHEETS} from "../../sensitive_constants";
+import {fetchSittings} from "./utils";
 
 class Sittings extends Component {
     constructor(props) {

@@ -7,7 +7,7 @@ const IntervieweeStatus = (props) => {
         return <p>{props.prefStatus}</p>;
     } else if (props.interviews && props.interviews.length > 0) {
         return props.interviews.map((interview) =>
-            <div>
+            <div key={interview.intervieweeReg + interview.sittingId + interview.interviewIndex}>
                 {interview.sittingId}
                 <SessionTimer style={{display: 'inline-block'}}
                               startTime={interview.startTime}
