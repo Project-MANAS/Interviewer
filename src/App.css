@@ -5,7 +5,8 @@
 .App-Brand {
     display: table-cell;
     vertical-align: middle;
-    margin: 8px;
+
+    margin: auto;
     padding: 8px;
 }
 
@@ -81,4 +82,38 @@ p {
 
 .loading {
     color: grey;
+}
+.button
+{
+    background-color: black;
+    color: blue;
+}
+input[type=button]{
+    background-color: black;
+}
+.sign_out{
+    background-color:#3333ff;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.sign_out:hover{
+    background-color:#0000cc;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.profilePic{
+
+}
+.App-Elevated{
+    font-size: 40px;
 }
