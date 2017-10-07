@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import '../App.css';
 class ProfileInfo extends Component {
     render() {
         let interviewerProfile = this.props.interviewerProfile;
@@ -22,8 +22,8 @@ class ProfileInfo extends Component {
                     </tr>
                 </td>
                 <td>
-                    <tr style={{float: 'left', margin: '8px'}}>
-                        <img style={{height: '64px'}}
+                    <tr className="profilePic" style={{float: 'left', margin: '8px'}}>
+                        <img style={{height: '75px'}}
                              src={interviewerProfile.googleProfile.getImageUrl()}
                              alt='Google Profile'/>
                     </tr>

@@ -2,6 +2,7 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import InterviewerSignIn from "./interviewer/InterviewerSignin";
 import React, {Component} from "react";
 import ProfileInfo from "./ProfileInfo";
+import '../App.css';
 
 class ProfileHeader extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class ProfileHeader extends Component {
 
     render() {
         return (
-            <div className="App-Elevated" style={{color: 'black', fontSize: '14px', background: 'lemonchiffon'}}>
+            <div className="App-Elevated" style={{color: 'black', fontSize: '20px', background: 'lemonchiffon', height: '100%', box-shadow: '0px'}}>
                 <div>
                     {
                         this.state.isSignedInToGoogle &&

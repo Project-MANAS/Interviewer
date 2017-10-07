@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './manas_logo.png';
 import './App.css';
+//import './materialize.min.css'
 
 import {API_KEY, CLIENT_ID, DISCOVERY_DOCS, SCOPES} from './sensitive_constants';
 import ProfileHeader from "./components/ProfileHeader";
@@ -44,7 +45,7 @@ class App extends Component {
                 <div className="App-header">
                     <div className="AppHeaderContainer">
                         <div className="App-Brand">
-                            <img style={{display: 'block-inline', float: 'left'}}
+                            <img style={{display: 'block-inline', float: 'left', height: '100px'}}
                                  src={logo} className="App-logo" alt="logo"/>
 
                             <Switch>
@@ -52,7 +53,7 @@ class App extends Component {
                                 <PropsRoute path="/scheduler" component={PageTitle} title="MANAS Scheduler"/>
                             </Switch>
                         </div>
-                        <div style={{float: 'right'}}>
+                        <div style={{float: 'right', height: '116px'}}>
                             <ProfileHeader onSigninStatusChange={this.updateSigninStatus}
                                            apiKey={API_KEY} clientId={CLIENT_ID}
                                            discoveryDocs={DISCOVERY_DOCS} scope={SCOPES}/>
