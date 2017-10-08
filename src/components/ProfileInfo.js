@@ -21,11 +21,6 @@ class ProfileInfo extends Component {
                         <td>Division:</td>
                         <td>{interviewerProfile.division || 'Unknown'}</td>
                     </tr>
-                    <td>
-                        <tr>
-
-                        </tr>
-                    </td>
                     </tbody>
                 </table>
                 <img className="profilePic" style={{float: 'right', margin: '8px', height: '75px'}}

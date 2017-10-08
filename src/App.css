@@ -42,6 +42,7 @@
     overflow: hidden;
     padding: 8px;
     margin: 8px;
+    vertical-align: top;
 }
 
 .App-Elevated {
@@ -53,6 +54,10 @@
 
 p {
     margin: 8px;
+}
+
+button {
+    margin: 4px;
 }
 
 @keyframes App-logo-spin {
@@ -83,16 +88,18 @@ p {
 .loading {
     color: grey;
 }
-.button
-{
+
+.button {
     background-color: black;
     color: blue;
 }
-input[type=button]{
+
+input[type=button] {
     background-color: black;
 }
-.sign_out{
-    background-color:#3333ff;
+
+.sign_out {
+    background-color: #3333ff;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -101,8 +108,9 @@ input[type=button]{
     display: inline-block;
     font-size: 16px;
 }
-.sign_out:hover{
-    background-color:#0000cc;
+
+.sign_out:hover {
+    background-color: #0000cc;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -111,9 +119,59 @@ input[type=button]{
     display: inline-block;
     font-size: 16px;
 }
-.profilePic{
+
+.profilePic {
 
 }
-.App-Elevated{
+
+.App-Elevated {
     font-size: 40px;
+}
+
+.Pane {
+    margin: 8px;
+}
+
+.PaneBody {
+    display: inline-block;
+}
+
+.PaneSelectors {
+    display: inline-block;
+    float: right;
+    position: absolute;
+    top: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.PaneSelector {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+
+table.Sheet {
+    border: 1px solid darkgray;
+    border-collapse: collapse;
+}
+
+table.Sheet > thead > tr > td {
+    font-size: 14px;
+    border: 1px solid lightgrey;
+}
+
+table.Sheet > tbody > tr > td {
+    font-size: 12px;
+    border: 1px solid lightgrey;
+}
+
+table.Sheet > tbody > tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.Section {
+    margin: 16px;
 }

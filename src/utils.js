@@ -2,7 +2,6 @@
 import {SPREADSHEET_ID} from "./sensitive_constants";
 import moment from "moment";
 
-
 export const fetchFromSheet = (sheet, range) => {
     console.assert(typeof sheet.id === 'number', 'sheetId must be a number');
     return gapi.client.sheets.spreadsheets.values.get({
@@ -42,7 +41,9 @@ export const appendToSheet = (sheet, range, rows) => {
     );
 };
 
-export const googleDateFormat = (date) => moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+export const googleDateFormat = (date) => moment(date).format("YYYY-MM-DD HH:mm:ss");
+
+export const formattedDateTime = (datetime) => moment(datetime).format("YYYY-MM-DD HH:mm:ss");
 
 
 // export const getUpdateRequest = (sheetId, rowIndex, columnIndex, rows) => {
